@@ -113,8 +113,8 @@ def M500c_to_M200c(M500c_cat, z):
     """
     h = cosmo_battaglia.h
 
-    # Convert Msun → Msun/h
-    M500c = M500c_cat * h
+    # Convert Catalog format of 1e14*Msun → Msun/h (needed for Colossus)
+    M500c = M500c_cat * 1e14 * h
 
     # Do the conversion at fixed cosmology
     M200c, R200c, c200c = mass_adv.changeMassDefinitionCModel(
@@ -124,9 +124,7 @@ def M500c_to_M200c(M500c_cat, z):
     # Convert back to physical Msun and Mpc
     M200c_Msun = M200c / h             # Msun
 
-    M200c_SM = M200c_Msun* 1e14
-
-    return M200c_SM
+    return M200c_Msun
 
 def get_critical_density(redshift_z):
     """
